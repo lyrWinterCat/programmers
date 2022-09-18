@@ -34,7 +34,7 @@ public class RecommendId {
         user_id=user_id.equals("")?"a":user_id;
 
         //6단계
-        int length = user_id.length();
+        int length = user_id.length(); //자주쓰는 값 변수로 뽑아내기
         user_id= length >=16?user_id.substring(0,15).replaceAll("\\.$",""):user_id;
 
         //7단계
