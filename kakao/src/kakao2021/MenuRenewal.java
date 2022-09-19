@@ -28,11 +28,11 @@ public class MenuRenewal {
 
             }
         }
-        System.out.println(menu); //sort 해주기
+        //System.out.println(menu); //sort 해주기
 
         ArrayList<String> sortedMenu = new ArrayList<>(menu); //set > list로 변환
         Collections.sort(sortedMenu); //정렬
-        System.out.println("sortedMenu = " + sortedMenu);
+        //System.out.println("sortedMenu = " + sortedMenu);
 
         //course[i]에 따라 course[i]개수만큼 메뉴가 들어있는 배열 생성
         for (int i = 0; i < course.length; i++) {
@@ -43,7 +43,7 @@ public class MenuRenewal {
 
             }
         }
-        System.out.println("courseMenu = " + courseMenu);
+        //System.out.println("courseMenu = " + courseMenu);
 
         //사용자 코스메뉴 만들기 >> courseMenu에 담기
         // makeUserCourse(orders[i], course[j], int start, int dept)
@@ -57,19 +57,34 @@ public class MenuRenewal {
             }
         }
 
-        System.out.println("courseMenu = " + courseMenu);
+        //System.out.println("courseMenu = " + courseMenu);
 
-        ArrayList<String> lastMenu = new ArrayList<>();
+        // 주문 횟수가 1 이하인 메뉴 삭제
         for (int i = 0; i < courseMenu.size(); i++) {
             courseMenu.values().removeAll(Collections.singleton(0));
             courseMenu.values().removeAll(Collections.singleton(1));
         }
-        System.out.println("courseMenu = " + courseMenu); //여기에서 orders 수에 따라 주문 수가 가장 큰 주문들만 남기기
-        // 새 리스트를 만들어 넣어주는 편이 나중에 정렬하기 좋겠지
+        //System.out.println("courseMenu = " + courseMenu);
 
-        String[] answer = {};
+        // 1. key의 길이에 따라 분류 >> keyset으로 가장 크기가 큰 key size를 기준잡기 (2~size)
+        // 2. key의 사이즈 별로 가장 value가 큰 값의 키값만 따로 뽑기 (value 비교) >> 리스트 저장 + 정렬
+        HashMap<Integer,Integer> count = new HashMap<>();
+        for (String s : courseMenu.keySet()) {
+            int max = courseMenu.get(s);
+            int now = count.getOrDefault(s.length(),0);
+            count.put(s.length(),Math.max(max,now));
+        }
+        //System.out.println("count = " + count);
+        ArrayList<String> answerList = new ArrayList<>();
+        for (String key : courseMenu.keySet()) {
+            if(courseMenu.get(key)==count.get(key.length())){
+                answerList.add(key);
+            }
+        }
+        //System.out.println("answerList = " + answerList);
+        Collections.sort(answerList);
 
-
+        String[] answer = answerList.toArray(new String[0]);
         return answer;
     }
 
@@ -106,8 +121,8 @@ public class MenuRenewal {
 
     public static void main(String[] args) {
         MenuRenewal menuRenewal = new MenuRenewal();
-        String [] orders = {"ABCDE", "AB", "CD", "ADE", "XYZ", "XYZ", "ACD"};
-        int [] cource = {2,3,5};
+        String [] orders = {"ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"};
+        int [] cource = {2,3,4};
         String[] answer = menuRenewal.solution(orders,cource);
         for (String s : answer) {
             System.out.println("s = " + s);
