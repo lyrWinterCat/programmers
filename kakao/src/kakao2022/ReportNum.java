@@ -8,29 +8,41 @@ public class ReportNum {
 
     public int[] solution(String[] id_list, String[] report, int k) {
         HashMap<String,Integer> reportCount = new HashMap<>();
+        HashMap<String,Integer> getMail = new HashMap<>();
+        HashMap<String,Integer> id_idx = new HashMap<>();
 
         for (String s : id_list) {
             reportCount.put(s,0);
+            getMail.put(s,0);
         }
 
-        //report 에서 신고한 아이디 신고당한 아이디 기준
-        // 동일 인물이 여러번 신고하면 한번으로 카운트됨
+        for (int i = 0; i < id_list.length; i++) {
+            id_idx.put(id_list[i],i);
+        }
 
         HashSet<String> reportSet = new HashSet<>(Arrays.asList(report));
 
+        //멤버별 신고당한 횟수
         for (String s : reportSet) {
             String[] reportId = s.split(" ");
             reportCount.put(reportId[1],reportCount.get(reportId[1])+1);
         }
 
-        for (String s : reportCount.keySet()) {
-            Integer value = reportCount.get(s);
-            if(value>=k){
-                
+        for (String s : reportSet) {
+            String[] reportId = s.split(" ");
+
+            if(reportCount.get(reportId[1])>=k){
+                getMail.put(reportId[0],getMail.get(reportId[0])+1);
             }
         }
 
-        int[] answer = {};
+        int[] answer = new int[id_list.length];
+
+        for (String s : getMail.keySet()) {
+           int idx=id_idx.get(s);
+           answer[idx]=getMail.get(s);
+        }
+
         return answer;
     }
 
