@@ -26,7 +26,7 @@ public class BabyTalk {
 
     public static void main(String[] args) {
         BabyTalk babyTalk = new BabyTalk();
-        String[] babbling = {"aya", "yee", "u", "maa", "wyeoo"};
+        String[] babbling = {"aya", "yeye", "u", "maa", "wyeoo"};
         babyTalk.solution(babbling);
     }
 }
