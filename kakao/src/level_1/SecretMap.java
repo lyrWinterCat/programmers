@@ -23,6 +23,7 @@ public class SecretMap {
                     answer[i]+=' ';
                 }
             }
+//            answer[i]=answer[i].replaceAll("1","#").replaceAll("0"," ");
         }
 
         return answer;
