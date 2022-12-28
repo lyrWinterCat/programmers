@@ -9,9 +9,7 @@ public class EnglishFollowUp {
         boolean wrongWord = false;
 
         Set<String> wordsSet = new HashSet<>(List.of(words));
-
         int sameWordIndex = 0;
-
         if (wordsSet.size() != words.length) { // 중복된 단어가 나올 시
             sameWord = true;
             sameWordIndex = findSameword(words);
@@ -47,9 +45,9 @@ public class EnglishFollowUp {
         int index = 0;
         ArrayList<String> wordsList = new ArrayList<>();
         for (int i = 0; i < words.length; i++) {
-            if(!wordsList.contains(words[i])){
+            if (!wordsList.contains(words[i])) {
                 wordsList.add(words[i]);
-            }else{
+            } else {
                 return i;
             }
         }

@@ -19,7 +19,7 @@ public class NextBigNum {
         }
         return answer;
     }
-    
+
     private int countOne(String binaryN) {
         int cnt=0;
         char[] charArr = binaryN.toCharArray();
