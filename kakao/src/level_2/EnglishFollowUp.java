@@ -26,18 +26,20 @@ public class EnglishFollowUp {
 
         if (sameWord && wrongWord) {
             int index = Math.min(sameWordIndex, wrongWordIndex);
-            answer[0] = (index % n) + 1;
-            answer[1] = (index / n) + 1;
-
+            answer = makeAnswer(index, n);
         } else if (sameWord) {
-            answer[0] = (sameWordIndex % n) + 1;
-            answer[1] = (sameWordIndex / n) + 1;
-
+            answer = makeAnswer(sameWordIndex, n);
         } else if (wrongWord) {
-            answer[0] = (wrongWordIndex % n) + 1;
-            answer[1] = (wrongWordIndex / n) + 1;
+            answer = makeAnswer(wrongWordIndex,n);
         }
 
+        return answer;
+    }
+
+    private int[] makeAnswer(int index, int n) {
+        int[] answer = new int[2];
+        answer[0] = (index % n) + 1;
+        answer[1] = (index / n) + 1;
         return answer;
     }
 
@@ -51,7 +53,6 @@ public class EnglishFollowUp {
                 return i;
             }
         }
-
         return index;
     }
 
@@ -63,5 +64,34 @@ public class EnglishFollowUp {
         for (int i : solution) {
             System.out.println("i = " + i);
         }
+        int[] solution2 = englishFollowUp.solution2(n, words);
+        for (int i : solution2) {
+            System.out.println("i2 = " + i);
+        }
     }
+    public int[] solution2(int n, String[] words) {
+        int[] answer = new int[2];
+        int index=0;
+        Stack<String> stack = new Stack<>();
+        for (int i = 0; i < words.length; i++) {
+            if(!stack.isEmpty() && stack.contains(words[i])){
+                index=i;
+                break;
+            }
+            if(!stack.isEmpty() && stack.peek().charAt(stack.peek().length()-1)!=words[i].charAt(0)){
+                index=i;
+                break;
+            }
+            stack.push(words[i]);
+        }
+
+        if(index>0){
+            answer[0] = (index % n) + 1;
+            answer[1] = (index / n) + 1;
+            return answer;
+        }
+
+        return answer;
+    }
+
 }
