@@ -3,12 +3,12 @@ package level_1;
 public class LeastCommonMultipleByN {
     public int solution(int[] arr) {
         for (int i = 1; i < arr.length; i++) {
-            arr[0] = makemakeLeastCommonMultiple(arr[0], arr[i]);
+            arr[0] = makeLeastCommonMultiple(arr[0], arr[i]);
         }
         return arr[0];
     }
 
-    private int makemakeLeastCommonMultiple(int num1, int num2) {
+    private int makeLeastCommonMultiple(int num1, int num2) {
         int max = 0;
         for (int i = 1; i <= num1 && i <= num2; i++) {
             if (num1 % i == 0 && num2 % i == 0) {
@@ -20,7 +20,7 @@ public class LeastCommonMultipleByN {
 
     public static void main(String[] args) {
         LeastCommonMultipleByN leastCommonMultipleByN = new LeastCommonMultipleByN();
-        int[] arr = {1,2,3};
+        int[] arr = {4,8,9};
         int solution = leastCommonMultipleByN.solution(arr);
         System.out.println("solution = " + solution);
     }
