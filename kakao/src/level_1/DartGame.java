@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class DartGame {
     public int solution(String dartResult) {
 
-        ArrayList<String> dartScore = new ArrayList<>();
         ArrayList<Integer> doubleIndex = new ArrayList<>();
         ArrayList<Integer> minusIndex = new ArrayList<>();
 
@@ -18,48 +17,42 @@ public class DartGame {
             }
         }
 
-        dartResult = dartResult.replaceAll("[*|#]", "");
-        System.out.println("dartResult = " + dartResult);
+        String removeOption = dartResult.replaceAll("[*|#]", "");
 
-        for (int i = 0; i < dartResult.length() - 1; i++) {
-            if ('0' <= dartResult.charAt(i) && '9' >= dartResult.charAt(i)) {
-                if (dartResult.charAt(i + 1) == 'S' || dartResult.charAt(i + 1) == 'D' || dartResult.charAt(i + 1) == 'T') {
-                    dartScore.add(dartResult.substring(i, i + 2));
-                }
-                if('0' <= dartResult.charAt(i+1) && '9' >= dartResult.charAt(i+1)){
-                    dartScore.add(dartResult.substring(i, i + 3));
-                }
+        String dartScore = removeOption.replaceAll("[S|D|T]"," ");
+        String[] dartScores = dartScore.split(" ");
+
+        String bonus = removeOption.replaceAll("[0-9]","");
+        int[] bonusScore = new int[3];
+        for (int i = 0; i < bonusScore.length; i++) {
+            if(bonus.charAt(i)=='S'){
+                bonusScore[i]=1;
+            }
+            if(bonus.charAt(i)=='D'){
+                bonusScore[i]=2;
+            }
+            if(bonus.charAt(i)=='T'){
+                bonusScore[i]=3;
             }
         }
 
-        return makeAnswer(dartScore, doubleIndex, minusIndex);
+
+        return makeAnswer(dartScores,bonusScore,doubleIndex, minusIndex);
     }
 
 
-    private int makeAnswer(ArrayList<String> dartScore, ArrayList<Integer> doubleIndex, ArrayList<Integer> minusIndex) {
-        int[] score = new int[4];
-        int answer = 0;
-        for (int i = 0; i < dartScore.size(); i++) {
-            switch (dartScore.get(i).charAt(dartScore.get(i).length()-1)) {
-                case 'S':
-                    score[i] = Integer.parseInt(dartScore.get(i).replaceAll("S", ""));
-                    break;
-                case 'D':
-                    score[i] = (int) Math.pow(Double.parseDouble(dartScore.get(i).replaceAll("D", "")),2);
-                    break;
-                case 'T':
-                    score[i] = (int) Math.pow(Double.parseDouble(dartScore.get(i).replaceAll("T", "")),3);
-                    break;
-            }
+    private int makeAnswer(String[] dartScores, int[] bonusScore, ArrayList<Integer> doubleIndex, ArrayList<Integer> minusIndex) {
+        int[] score = new int[3];
+        for (int i = 0; i < score.length; i++) {
+            score[i]= (int) Math.pow(Double.parseDouble(dartScores[i]),bonusScore[i]);
         }
-        if (!(doubleIndex.isEmpty() && minusIndex.isEmpty())) {
-            score = makeBonusScore(score, doubleIndex, minusIndex);
+        score = makeBonusScore(score,doubleIndex,minusIndex);
+
+        int answer = 0;
+        for (int i : score) {
+            answer+=i;
         }
 
-        for (int i : score) {
-            System.out.println("i = " + i);
-            answer += i;
-        }
         return answer;
     }
 
@@ -90,7 +83,7 @@ public class DartGame {
 
     public static void main(String[] args) {
         DartGame dartGame = new DartGame();
-        String dartResult = "1D2S#10S";
+        String dartResult = "1S2D*3T";
         int solution = dartGame.solution(dartResult);
         System.out.println("solution = " + solution);
 
