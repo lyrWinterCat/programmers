@@ -4,11 +4,19 @@ public class JadenCase {
     public String solution(String s) {
         String answer = "";
 
-        String[] blanks = s.split("[0-9A-Za-z]+");
-
-        for (String blank : blanks) {
-            System.out.println("blank = " + blank);
+        if(!s.contains(" ")){
+            if(s.length()==1){
+                return s.toUpperCase();
+            }
+            String notBlank = "";
+            notBlank+=String.valueOf(s.charAt(0)).toUpperCase();
+            for (int i = 1; i <s.length(); i++) {
+                notBlank+=String.valueOf(s.charAt(i)).toLowerCase();
+            }
+            return notBlank;
         }
+
+        String[] blanks = s.split("[0-9A-Za-z]+");
 
         String newS = s.replaceAll("\\s+", " ");
         newS=newS.trim();
@@ -51,7 +59,7 @@ public class JadenCase {
 
     public static void main(String[] args) {
         JadenCase jadenCase = new JadenCase();
-        String s = "  3people  unFollowed me ";
+        String s = "aa";
         String solution = jadenCase.solution(s);
         System.out.println("solution = " + solution);
     }
