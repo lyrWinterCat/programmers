@@ -14,21 +14,20 @@ public class CokeQuiz {
         while (n >= 2) {
             answer += (n / a) * b;
             emptyBottle += n % a;
-            System.out.println("answer = " + answer);
 
             if (emptyBottle > 0) {
-                if (emptyBottle > a) {
-                    answer += emptyBottle / a;
-                    emptyBottle += emptyBottle % a;
-                } else {
-                    emptyBottle += emptyBottle % a;
+                if(emptyBottle>=a){
+                    answer+=emptyBottle/a;
+                    emptyBottle=emptyBottle%a;
                 }
-
             }
 
             n /= a;
         }
 
+        if(a==2){
+            answer++;
+        }
 
         return answer;
     }
