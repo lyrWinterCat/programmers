@@ -24,4 +24,5 @@
 
 
 * pebble 문법 공부하기
+  * javascript 오랫만에 쓴다 공부해야함
   
