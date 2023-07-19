@@ -1,82 +1,107 @@
 package makeList;
 
 public class SinglyLinkedList {
-    private Node headNode;
+    private Node firstNode;
 
     public SinglyLinkedList() {
-        headNode = null;
+        firstNode = null;
     }
 
-    //중간 삽입 노드
-    public void insertNode(Node preNode, String data) {
-        Node newNode = new Node(data);
-
-        newNode.link = preNode.link;
-        preNode.link = newNode;
-    }
 
     // 노드 추가 (마지막 노드에 추가)
     public void addNode(String data) {
         Node newNode = new Node(data);
 
-        if (headNode == null) {
-            this.headNode = newNode;
+        if (firstNode == null) {
+            this.firstNode = newNode;
         } else {
-            Node tempNode = headNode;
+            Node tempNode = firstNode; //마지막 노드를 찾기 위해 headNode를 참조함
 
-            while (tempNode.link != null) {
-                tempNode = tempNode.link;
+            //node.link==null일때까지 while문을 돌기
+            while (tempNode.nextNode != null) {
+                tempNode = tempNode.nextNode;
             }
-            tempNode.link = newNode;
+
+            //현재 tempNode는 마지막노드
+            //마지막 노드에 newNode 넣어주기
+            tempNode.nextNode = newNode;
         }
     }
+
+    //중간 삽입 노드
+    public void insertNode(Node preNode, String data) { // 추가 될 노드의 앞 노드
+        Node newNode = new Node(data); //들어온 데이터로 새 노드 생성
+
+        newNode.nextNode = preNode.nextNode; //새로 생성된 노드의 link (다음 노드값)은 preNode가 가지고 있던 link값
+        preNode.nextNode = newNode; //기존 Node의 link는 이제 다음으로 들어올 newNode가 된다.
+    }
+
 
     // 중간 노드 삭제
     public void deleteNode(String data) {
-        Node preNode = headNode;
-        Node tempNode = headNode.link;
+        Node preNode = null;
+        Node targetNode = firstNode; // headNode 다음값을 할당
 
-        if (data.equals(preNode.getData())) {
-            headNode = preNode.link;
-            preNode.link = null;
-        } else {
-            while (tempNode != null) {
-                if (data.equals(tempNode.getData())) {
-                    if (tempNode.link == null) {
-                        preNode.link = null;
-                    } else {
-                        preNode.link = tempNode.link;
-                        tempNode.link = null;
-                    }
+        while (targetNode.nextNode != null) {
+
+            if (targetNode.getData().equals(data)) {
+
+                if(preNode == null){
+                    firstNode = targetNode.nextNode;
                     break;
-                } else {
-                    preNode = tempNode;
-                    tempNode = tempNode.link;
                 }
+                preNode.nextNode = targetNode.nextNode;
+                break;
+            } else {
+                preNode = targetNode;
+                targetNode = targetNode.nextNode;
             }
         }
+
     }
 
-    public void deleteLastNode(){
-        Node preNode;
-        Node tempNode;
+    //마지막 노드 삭제
+//    public void deleteLastNode() {
+//        Node preNode;
+//        Node targetNode;
+//
+//        if (firstNode == null) {
+//            return;
+//        }
+//
+//        if (firstNode.nextNode == null) {
+//            firstNode = null;
+//        } else {
+//            preNode = firstNode;
+//            targetNode = firstNode.nextNode;
+//
+//            while (targetNode.nextNode != null) {
+//                preNode = targetNode;
+//                targetNode = targetNode.nextNode;
+//            }
+//            preNode.nextNode = null;
+//        }
+//    }
 
-        if(headNode.link==null){
+    public void deleteLast(){
+        Node preNode = null;
+        Node targetNode = firstNode;
+
+        if(targetNode == null){
             return;
         }
 
-        if(headNode.link==null){
-            headNode=null;
-        }else{
-            preNode = headNode;
-            tempNode = headNode.link;
-
-            while(tempNode.link != null){
-                preNode = tempNode;
-                tempNode = tempNode.link;
-            }
-            preNode.link=null;
+        while(targetNode.nextNode != null){
+            preNode = targetNode;
+            targetNode = targetNode.nextNode;
         }
+
+        if(preNode == null){ //while문을 돌린 다음에도 preNode==null / targetNode.equals(firstNode)
+            firstNode = null;
+            return;
+        }
+
+        preNode.nextNode = null;
     }
 
 

@@ -2,21 +2,21 @@ package makeList;
 
 public class Node {
     private String data;
-    public Node link;
+    public Node nextNode;
 
     public Node(){
         this.data=null;
-        this.link = null;
+        this.nextNode = null;
     }
 
     public Node(String data){
         this.data = data;
-        this.link = null;
+        this.nextNode = null;
     }
 
-    public Node(String data, Node link){
+    public Node(String data, Node nextNode){
         this.data = data;
-        this.link = link;
+        this.nextNode = nextNode;
     }
 
     public String getData() {
