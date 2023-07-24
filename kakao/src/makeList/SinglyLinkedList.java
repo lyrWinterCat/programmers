@@ -2,15 +2,20 @@ package makeList;
 
 public class SinglyLinkedList {
     private Node firstNode;
+    private int size=0;
 
     public SinglyLinkedList() {
         firstNode = null;
     }
 
+    public int getSize(){
+        return size;
+    }
 
     // 노드 추가 (마지막 노드에 추가)
     public void addNode(String data) {
         Node newNode = new Node(data);
+        size++;
 
         if (firstNode == null) {
             this.firstNode = newNode;
@@ -30,6 +35,7 @@ public class SinglyLinkedList {
 
     //중간 삽입 노드
     public void insertNode(Node preNode, String data) { // 추가 될 노드의 앞 노드
+        size++;
         Node newNode = new Node(data); //들어온 데이터로 새 노드 생성
 
         newNode.nextNode = preNode.nextNode; //새로 생성된 노드의 link (다음 노드값)은 preNode가 가지고 있던 link값
@@ -39,6 +45,7 @@ public class SinglyLinkedList {
 
     // 중간 노드 삭제
     public void deleteNode(String data) {
+        size--;
         Node preNode = null;
         Node targetNode = firstNode; // headNode 다음값을 할당
 
@@ -60,29 +67,6 @@ public class SinglyLinkedList {
 
     }
 
-    //마지막 노드 삭제
-//    public void deleteLastNode() {
-//        Node preNode;
-//        Node targetNode;
-//
-//        if (firstNode == null) {
-//            return;
-//        }
-//
-//        if (firstNode.nextNode == null) {
-//            firstNode = null;
-//        } else {
-//            preNode = firstNode;
-//            targetNode = firstNode.nextNode;
-//
-//            while (targetNode.nextNode != null) {
-//                preNode = targetNode;
-//                targetNode = targetNode.nextNode;
-//            }
-//            preNode.nextNode = null;
-//        }
-//    }
-
     public void deleteLast(){
         Node preNode = null;
         Node targetNode = firstNode;
@@ -97,10 +81,12 @@ public class SinglyLinkedList {
         }
 
         if(preNode == null){ //while문을 돌린 다음에도 preNode==null / targetNode.equals(firstNode)
+            size--;
             firstNode = null;
             return;
         }
 
+        size--;
         preNode.nextNode = null;
     }
 
