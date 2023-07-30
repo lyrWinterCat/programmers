@@ -23,10 +23,10 @@ public class Node {
         this.nextNode = null;
     }
 
-    public Node(String data, Node nextNode) {
-        this.data = data;
-        this.nextNode = nextNode;
-    }
+//    public Node(String data, Node nextNode) {
+//        this.data = data;
+//        this.nextNode = nextNode;
+//    }
 
     public String getData() {
         return this.data;
