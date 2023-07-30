@@ -28,14 +28,12 @@ public class Main {
         boolean test7 = testList.insert(3, "test7");
         System.out.println("올바른 index에 insert: "+testList.getSize());
 
+        testList.printAllNodesData();
 
-        //testList의 모든 노드 데이터 값 출력
-        Node node = testList.getFirstNode();
-        while(node.getNextNode()!=null){
-            System.out.println(node.getData());
-            node = node.getNextNode();
-        }
-        System.out.println(node.getData());
+        Node node = testList.getNode(2);
+        System.out.println("index 2 : "+node.getData());
+
+
 
     }
 }

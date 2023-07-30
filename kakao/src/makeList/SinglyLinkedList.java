@@ -27,7 +27,33 @@ public class SinglyLinkedList {
         this.size++;
     }
 
-    //
+    //viewAllNodes
+    public void printAllNodesData(){
+        Node node = getFirstNode();
+        while(node.getNextNode()!=null){
+            System.out.println(node.getData());
+            node = node.getNextNode();
+        }
+        System.out.println(node.getData());
+    }
+
+
+    //getIndexNode
+    public Node getNode(int index) {
+        if (index >= getSize()) {
+            return null;
+        } else if (index == 0) {
+            return getFirstNode();
+        }
+        Node targetNode = getFirstNode();
+        while (index > 0) {
+            targetNode = targetNode.getNextNode();
+            index--;
+        }
+        return targetNode;
+    }
+
+
     public boolean insert(int index, String data) {
         // size ,index 검증
         boolean validateInsert = checkInsert(getSize(), index);
@@ -84,6 +110,7 @@ public class SinglyLinkedList {
         }
         return targetPreNode;
     }
+
     private boolean insertNode(Node targetNode, Node preNode) {
         Node nextNode = preNode.getNextNode();
         targetNode.setNextNode(nextNode);
@@ -91,10 +118,6 @@ public class SinglyLinkedList {
         addSize();
         return true;
     }
-
-
-
-
 
 
 }
