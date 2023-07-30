@@ -1,20 +1,29 @@
 package makeList;
 
 public class Node {
-    private String data;
-    public Node nextNode;
+    private final String data;
 
-    public Node(){
-        this.data=null;
+
+    public void setNextNode(Node nextNode) {
+        this.nextNode = nextNode;
+    }
+
+    private Node nextNode;
+
+    public Node getNextNode() {
+        return nextNode;
+    }
+    public Node() {
+        this.data = null;
         this.nextNode = null;
     }
 
-    public Node(String data){
+    public Node(String data) {
         this.data = data;
         this.nextNode = null;
     }
 
-    public Node(String data, Node nextNode){
+    public Node(String data, Node nextNode) {
         this.data = data;
         this.nextNode = nextNode;
     }

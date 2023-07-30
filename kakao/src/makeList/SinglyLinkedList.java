@@ -1,93 +1,95 @@
 package makeList;
 
+import java.util.LinkedList;
+
 public class SinglyLinkedList {
     private Node firstNode;
-    private int size=0;
+    private int size = 0;
 
     public SinglyLinkedList() {
-        firstNode = null;
+        this.firstNode = null;
+        this.size = 0;
     }
 
-    public int getSize(){
+    public int getSize() {
         return size;
     }
 
-    // 노드 추가 (마지막 노드에 추가)
-    public void addNode(String data) {
-        Node newNode = new Node(data);
-        size++;
-
-        if (firstNode == null) {
-            this.firstNode = newNode;
-        } else {
-            Node tempNode = firstNode; //마지막 노드를 찾기 위해 headNode를 참조함
-
-            //node.link==null일때까지 while문을 돌기
-            while (tempNode.nextNode != null) {
-                tempNode = tempNode.nextNode;
-            }
-
-            //현재 tempNode는 마지막노드
-            //마지막 노드에 newNode 넣어주기
-            tempNode.nextNode = newNode;
-        }
+    public Node getFirstNode() {
+        return firstNode;
     }
 
-    //중간 삽입 노드
-    public void insertNode(Node preNode, String data) { // 추가 될 노드의 앞 노드
-        size++;
-        Node newNode = new Node(data); //들어온 데이터로 새 노드 생성
-
-        newNode.nextNode = preNode.nextNode; //새로 생성된 노드의 link (다음 노드값)은 preNode가 가지고 있던 link값
-        preNode.nextNode = newNode; //기존 Node의 link는 이제 다음으로 들어올 newNode가 된다.
+    public void setFirstNode(Node firstNode) {
+        this.firstNode = firstNode;
     }
 
-
-    // 중간 노드 삭제
-    public void deleteNode(String data) {
-        size--;
-        Node preNode = null;
-        Node targetNode = firstNode; // headNode 다음값을 할당
-
-        while (targetNode.nextNode != null) {
-
-            if (targetNode.getData().equals(data)) {
-
-                if(preNode == null){
-                    firstNode = targetNode.nextNode;
-                    break;
-                }
-                preNode.nextNode = targetNode.nextNode;
-                break;
-            } else {
-                preNode = targetNode;
-                targetNode = targetNode.nextNode;
-            }
-        }
-
+    public void addSize() {
+        this.size++;
     }
 
-    public void deleteLast(){
-        Node preNode = null;
-        Node targetNode = firstNode;
-
-        if(targetNode == null){
-            return;
+    //
+    public boolean insert(int index, String data) {
+        // size ,index 검증
+        boolean validateInsert = checkInsert(getSize(), index);
+        if (!validateInsert) {
+            return false;
         }
 
-        while(targetNode.nextNode != null){
-            preNode = targetNode;
-            targetNode = targetNode.nextNode;
+        //어디에 들어갈지 찾는다
+        if (index == 0) { //index ==0
+            return addFirst(data);
         }
 
-        if(preNode == null){ //while문을 돌린 다음에도 preNode==null / targetNode.equals(firstNode)
-            size--;
-            firstNode = null;
-            return;
-        }
+        // index!=0 >> 찾자 (targetNode, preNode) >> 넣어주지
+        Node targetNode = new Node(data);
+        Node preNode = findTargetPreNode(index);
+        return insertNode(targetNode, preNode);
+    }
 
-        size--;
-        preNode.nextNode = null;
+    private boolean insertNode(Node targetNode, Node preNode) {
+        Node nextNode = preNode.getNextNode();
+        targetNode.setNextNode(nextNode);
+        preNode.setNextNode(targetNode);
+        addSize();
+        return true;
+    }
+
+    private Node findTargetPreNode(int index) {
+        Node targetPreNode = getFirstNode();
+        while (index - 1 > 0) {
+            targetPreNode = targetPreNode.getNextNode();
+            index--;
+        }
+        return targetPreNode;
+    }
+
+    private boolean addFirst(String data) {
+        if (getSize() == 0) {
+            setFirstNode(new Node(data));
+            addSize();
+            return true;
+        }
+        Node newFirstNode = new Node(data);
+        newFirstNode.setNextNode(getFirstNode());
+        setFirstNode(newFirstNode);
+        addSize();
+        return true;
+    }
+
+    private boolean checkInsert(int size, int index) {
+        if (index < 0) {
+            return false;
+        }
+        if (size == 0 && index != 0) {
+            return false;
+        }
+        if (size == 0 && index == 0) {
+            return true;
+        }
+        if (index >= size) {
+            return false;
+        }
+        return true;
     }
 
 
