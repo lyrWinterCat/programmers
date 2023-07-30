@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class SinglyLinkedList {
     private Node firstNode;
-    private int size = 0;
+    private int size;
 
     public SinglyLinkedList() {
         this.firstNode = null;
@@ -46,36 +46,6 @@ public class SinglyLinkedList {
         return insertNode(targetNode, preNode);
     }
 
-    private boolean insertNode(Node targetNode, Node preNode) {
-        Node nextNode = preNode.getNextNode();
-        targetNode.setNextNode(nextNode);
-        preNode.setNextNode(targetNode);
-        addSize();
-        return true;
-    }
-
-    private Node findTargetPreNode(int index) {
-        Node targetPreNode = getFirstNode();
-        while (index - 1 > 0) {
-            targetPreNode = targetPreNode.getNextNode();
-            index--;
-        }
-        return targetPreNode;
-    }
-
-    private boolean addFirst(String data) {
-        if (getSize() == 0) {
-            setFirstNode(new Node(data));
-            addSize();
-            return true;
-        }
-        Node newFirstNode = new Node(data);
-        newFirstNode.setNextNode(getFirstNode());
-        setFirstNode(newFirstNode);
-        addSize();
-        return true;
-    }
-
     private boolean checkInsert(int size, int index) {
         if (index < 0) {
             return false;
@@ -91,6 +61,40 @@ public class SinglyLinkedList {
         }
         return true;
     }
+
+    private boolean addFirst(String data) {
+        if (getSize() == 0) {
+            setFirstNode(new Node(data));
+            addSize();
+            return true;
+        }
+        Node newFirstNode = new Node(data);
+        newFirstNode.setNextNode(getFirstNode());
+        setFirstNode(newFirstNode);
+        addSize();
+        return true;
+    }
+
+
+    private Node findTargetPreNode(int index) {
+        Node targetPreNode = getFirstNode();
+        while (index - 1 > 0) {
+            targetPreNode = targetPreNode.getNextNode();
+            index--;
+        }
+        return targetPreNode;
+    }
+    private boolean insertNode(Node targetNode, Node preNode) {
+        Node nextNode = preNode.getNextNode();
+        targetNode.setNextNode(nextNode);
+        preNode.setNextNode(targetNode);
+        addSize();
+        return true;
+    }
+
+
+
+
 
 
 }
