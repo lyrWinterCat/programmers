@@ -19,11 +19,11 @@ public class SinglyLinkedList {
         return firstNode;
     }
 
-    public void setFirstNode(Node firstNode) {
+    private void setFirstNode(Node firstNode) {
         this.firstNode = firstNode;
     }
 
-    public void addSize() {
+    private void addSize() {
         this.size++;
     }
 
