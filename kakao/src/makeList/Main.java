@@ -30,8 +30,8 @@ public class Main {
 
         testList.printAllNodesData();
 
-        Node node = testList.getNode(2);
-        System.out.println("index 2 : "+node.getData());
+        String testNodeData = testList.getNodeData(2);
+        System.out.println("index 2 : "+testNodeData);
 
 
 

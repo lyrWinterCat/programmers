@@ -46,18 +46,18 @@ public class SinglyLinkedList {
 
 
     //getIndexNode
-    public Node getNode(int index) {
+    public String getNodeData(int index) {
         if (index >= getSize()) {
             return null;
         } else if (index == 0) {
-            return getFirstNode();
+            return getFirstNode().getData();
         }
         Node targetNode = getFirstNode();
         while (index > 0) {
             targetNode = targetNode.getNextNode();
             index--;
         }
-        return targetNode;
+        return targetNode.getData();
     }
 
 
