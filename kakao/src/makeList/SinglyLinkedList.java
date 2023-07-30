@@ -2,6 +2,9 @@ package makeList;
 
 import java.util.LinkedList;
 
+//singlyLinkedList 에서 get Node , node를 접근할 수 없게 해야한다.
+// getFirstData가 되어야 함!
+
 public class SinglyLinkedList {
     private Node firstNode;
     private int size;
@@ -15,7 +18,7 @@ public class SinglyLinkedList {
         return size;
     }
 
-    public Node getFirstNode() {
+    private Node getFirstNode() {
         return firstNode;
     }
 
@@ -25,6 +28,10 @@ public class SinglyLinkedList {
 
     private void addSize() {
         this.size++;
+    }
+
+    public String getFirstNodeData(){
+        return getFirstNode().getData();
     }
 
     //viewAllNodes

@@ -11,12 +11,12 @@ public class Main {
 
         boolean test2 = testList.insert(0,"test2");
         System.out.println("firstNode에 값넣기: "+testList.getSize());
-        System.out.println(testList.getFirstNode().getData());
+        System.out.println(testList.getFirstNodeData());
         System.out.println(test2);
 
         boolean test3 = testList.insert(0,"test3");
         System.out.println("firstNode에 값 바꾸기 : "+testList.getSize());
-        System.out.println(testList.getFirstNode().getData());
+        System.out.println(testList.getFirstNodeData());
         System.out.println(test3);
 
         boolean test4 = testList.insert(5, "test4");
