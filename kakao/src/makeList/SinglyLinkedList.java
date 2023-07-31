@@ -1,7 +1,5 @@
 package makeList;
 
-import java.util.LinkedList;
-
 //singlyLinkedList 에서 get Node , node를 접근할 수 없게 해야한다.
 // getFirstData가 되어야 함!
 
@@ -29,6 +27,7 @@ public class SinglyLinkedList {
     private void addSize() {
         this.size++;
     }
+    private void minusSize(){ this.size--;}
 
     public String getFirstNodeData(){
         return getFirstNode().getData();
@@ -79,6 +78,53 @@ public class SinglyLinkedList {
         return insertNode(targetNode, preNode);
     }
 
+    public boolean delete(int index){
+        boolean validateDelete = checkDelete(getSize(), index);
+        if(!validateDelete){
+            return false;
+        }
+
+        if(index==0){
+            return removeFirst();
+        }
+
+        Node preNode = findTargetPreNode(index);
+        return deleteNode(preNode);
+    }
+    private boolean checkDelete(int size, int index) {
+        if(size == 0){
+            return false;
+        }
+        else if(index < 0) {
+            return false;
+        }
+
+        return index < size;
+    }
+    private boolean removeFirst() {
+        // size가 1이라면 >> firstNode밖에 없다면
+        if(getSize() == 1){
+            setFirstNode(null);
+            minusSize();
+            return true;
+        }
+
+        //size가 1이 아니라면 >> firstNode를 그 다음노드로 바꿔주기
+        setFirstNode(getFirstNode().getNextNode());
+        minusSize();
+        return true;
+    }
+
+    private boolean deleteNode(Node preNode) {
+        Node targetNode = preNode.getNextNode();
+        preNode.setNextNode(targetNode.getNextNode());
+        minusSize();
+        return true;
+    }
+
+
+
+
     private boolean checkInsert(int size, int index) {
         if (index < 0) {
             return false;
@@ -86,13 +132,10 @@ public class SinglyLinkedList {
         if (size == 0 && index != 0) {
             return false;
         }
-        if (size == 0 && index == 0) {
+        if (size == 0) {
             return true;
         }
-        if (index >= size) {
-            return false;
-        }
-        return true;
+        return index <= size;
     }
 
     private boolean addFirst(String data) {
