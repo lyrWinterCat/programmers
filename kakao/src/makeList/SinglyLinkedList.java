@@ -59,11 +59,27 @@ public class SinglyLinkedList {
         return targetNode.getData();
     }
 
+    //나중에 메서드로 빼주기
+    public boolean add(String data){
+        Node newNode = new Node(data);
+        if(size==0){
+            setFirstNode(newNode);
+            addSize();
+            return true;
+        }
+
+        Node preNode = getFirstNode();
+        while(preNode.getNextNode()!=null){
+            preNode = preNode.getNextNode();
+        }
+        preNode.setNextNode(newNode);
+        addSize();
+        return true;
+    }
 
     public boolean insert(int index, String data) {
         // size ,index 검증
-        boolean validateInsert = checkInsert(getSize(), index);
-        if (!validateInsert) {
+        if (!isPossibleInsert(getSize(), index)) {
             return false;
         }
 
@@ -78,7 +94,7 @@ public class SinglyLinkedList {
         return insertNode(targetNode, preNode);
     }
 
-    private boolean checkInsert(int size, int index) {
+    private boolean isPossibleInsert(int size, int index) {
         if (index < 0) {
             return false;
         }
@@ -122,8 +138,8 @@ public class SinglyLinkedList {
     }
 
     public boolean delete(int index){
-        boolean validateDelete = checkDelete(getSize(), index);
-        if(!validateDelete){
+
+        if(!isPossibleDelete(getSize(), index)){
             return false;
         }
 
@@ -135,11 +151,11 @@ public class SinglyLinkedList {
         return deleteNode(preNode);
     }
 
-    private boolean checkDelete(int size, int index) {
+    private boolean isPossibleDelete(int size, int index) {
         if(size == 0){
             return false;
         }
-        else if(index < 0) {
+        if(index < 0) {
             return false;
         }
 
