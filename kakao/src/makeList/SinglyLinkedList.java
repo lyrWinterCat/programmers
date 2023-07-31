@@ -78,53 +78,6 @@ public class SinglyLinkedList {
         return insertNode(targetNode, preNode);
     }
 
-    public boolean delete(int index){
-        boolean validateDelete = checkDelete(getSize(), index);
-        if(!validateDelete){
-            return false;
-        }
-
-        if(index==0){
-            return removeFirst();
-        }
-
-        Node preNode = findTargetPreNode(index);
-        return deleteNode(preNode);
-    }
-    private boolean checkDelete(int size, int index) {
-        if(size == 0){
-            return false;
-        }
-        else if(index < 0) {
-            return false;
-        }
-
-        return index < size;
-    }
-    private boolean removeFirst() {
-        // size가 1이라면 >> firstNode밖에 없다면
-        if(getSize() == 1){
-            setFirstNode(null);
-            minusSize();
-            return true;
-        }
-
-        //size가 1이 아니라면 >> firstNode를 그 다음노드로 바꿔주기
-        setFirstNode(getFirstNode().getNextNode());
-        minusSize();
-        return true;
-    }
-
-    private boolean deleteNode(Node preNode) {
-        Node targetNode = preNode.getNextNode();
-        preNode.setNextNode(targetNode.getNextNode());
-        minusSize();
-        return true;
-    }
-
-
-
-
     private boolean checkInsert(int size, int index) {
         if (index < 0) {
             return false;
@@ -151,7 +104,6 @@ public class SinglyLinkedList {
         return true;
     }
 
-
     private Node findTargetPreNode(int index) {
         Node targetPreNode = getFirstNode();
         while (index - 1 > 0) {
@@ -168,6 +120,57 @@ public class SinglyLinkedList {
         addSize();
         return true;
     }
+
+    public boolean delete(int index){
+        boolean validateDelete = checkDelete(getSize(), index);
+        if(!validateDelete){
+            return false;
+        }
+
+        if(index==0){
+            return removeFirst();
+        }
+
+        Node preNode = findTargetPreNode(index);
+        return deleteNode(preNode);
+    }
+
+    private boolean checkDelete(int size, int index) {
+        if(size == 0){
+            return false;
+        }
+        else if(index < 0) {
+            return false;
+        }
+
+        return index < size;
+    }
+    private boolean removeFirst() {
+        // size가 1이라면 >> firstNode밖에 없다면
+        if(getSize() == 1){
+            setFirstNode(null);
+            minusSize();
+            return true;
+        }
+
+        //size가 1이 아니라면 >> firstNode를 그 다음노드로 바꿔주기
+        Node newFirstNode = getFirstNode().getNextNode();
+        setFirstNode(newFirstNode);
+        minusSize();
+        return true;
+    }
+
+    private boolean deleteNode(Node preNode) {
+        Node targetNode = preNode.getNextNode();
+        preNode.setNextNode(targetNode.getNextNode());
+        minusSize();
+        return true;
+    }
+
+
+
+
+
 
 
 }
