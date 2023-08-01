@@ -104,7 +104,7 @@ public class SinglyLinkedList {
         if (size == 0) {
             return true;
         }
-        return index <= size;
+        return index < size;
     }
 
     private boolean addFirst(String data) {
