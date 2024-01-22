@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class AddFraction {
     public int[] solution(int numer1, int denom1, int numer2, int denom2) {
-        int top = numer1 * denom2 + denom1*numer2;
+        int top = numer1 * denom2 + denom1 * numer2;
         int bottom = denom1 * denom2;
         int gcd = makeGCD(top, bottom);
         int[] answer = {top/gcd, bottom/gcd};
@@ -35,12 +35,14 @@ public class AddFraction {
                 }
             }
         }
+
         return gcd.get(gcd.size()-1);
     }
 
     public static void main(String[] args) {
         AddFraction addFraction = new AddFraction();
-        int[] answer = addFraction.solution(1,2,3,4);
+//        int[] answer = addFraction.solution(4,3,4,3);
+        int[] answer = addFraction.solution(3,3,3,2);
         System.out.println(Arrays.toString(answer));
     }
 }
