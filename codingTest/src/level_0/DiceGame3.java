@@ -1,4 +1,9 @@
 package level_0;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /*
 * 1부터 6까지 숫자가 적힌 주사위가 네 개
 
@@ -12,13 +17,55 @@ package level_0;
 * */
 public class DiceGame3 {
     public int solution(int a, int b, int c, int d) {
+        int[] diceArray = new int[7];
+        diceArray[a]++;
+        diceArray[b]++;
+        diceArray[c]++;
+        diceArray[d]++;
+
         int answer = 0;
+        int countZero = 0;
+
+        for (int i = 0; i < diceArray.length; i++) {
+            if(diceArray[i]==0){
+                countZero++;
+            }
+        }
+
+        int p, q;
+        List<Integer> list = Arrays.stream(diceArray).boxed().collect(Collectors.toList());
+        switch (countZero){
+            case 3:
+                answer = list.indexOf(1);
+                break;
+            case 4:
+                p = list.indexOf(1);
+                q = list.lastIndexOf(1);
+                answer = p*q;
+                break;
+            case 5:
+                p = list.indexOf(3);
+                if(p==-1){
+                    p = list.indexOf(2);
+                    q = list.lastIndexOf(2);
+                    answer = (p+q)*(q-p);
+                }else{
+                    p = list.indexOf(3);
+                    q = list.indexOf(1);
+                    double num = 10*p+q;
+                    answer = (int)Math.pow(num,2);
+                }
+                break;
+            case 6:
+                answer = 1111 * (list.indexOf(4));
+                break;
+        }
         return answer;
     }
 
     public static void main(String[] args) {
         DiceGame3 diceGame3 = new DiceGame3();
-        int answer = diceGame3.solution(1,2,3,4);
+        int answer = diceGame3.solution(2,2,2,2);
         System.out.println(answer);
     }
 }
